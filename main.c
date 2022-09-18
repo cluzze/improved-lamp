@@ -87,6 +87,9 @@ void print_array(int *tri)
 
 int check_used(int *tri, int *used)
 {
+	assert(tri);
+	assert(used);
+
 	int hash[3] = {0};
 	for (int i = 0; i <= 4; i += 2)
 	{
@@ -104,6 +107,8 @@ int check_used(int *tri, int *used)
 int perm_solve(int *tri, int solutions[][SIZE], int *used)
 {
 	assert(tri);
+	assert(solutions);
+	assert(used);
 
 	int size = 0;
 
