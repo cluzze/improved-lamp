@@ -5,8 +5,6 @@
 
 #define SIZE 6
 
-int nums[SIZE] = {1, 2, 3, 4, 5, 6};
-
 int check_sum(int *tri)
 {
 	assert(tri);
@@ -25,33 +23,6 @@ int check_sum(int *tri)
 			return 0;
 	}
 	return 1;
-}
-
-void rand_solve(int *tri)
-{
-	assert(tri);
-
-	srand(time(NULL));
-
-	int r = 0;
-	int used[SIZE] = {0};
-
-	do {
-		for (int i = 0; i < SIZE; i++)
-		{
-			used[i] = 0;
-		}
-		for (int i = 0; i < SIZE; i++)
-		{
-			do
-			{
-				r = rand() % 6;
-			} while (used[r] != 0);
-
-			tri[i] = nums[r];
-			used[r] = 1;
-		}
-	} while (check_sum(tri) != 1);
 }
 
 void swap(int *a, int *b)
@@ -106,36 +77,61 @@ void print_array(int *tri)
 {
 	assert(tri);
 
-	for (int i = 0; i < SIZE; i++)
+	for (int i = 0; i <= 4; i += 2)
 	{
-		printf("%d ", tri[i]);
+		printf("(%d,%d,%d)", tri[i], tri[i + 1], tri[(i + 1 + 4) % 6]);
+
 	}
 	printf("\n");
 }
 
-void perm_solve(int *tri)
+int check_used(int *tri, int *used)
 {
-	assert(tri);
-
-	while (!check_sum(tri) && next_permutation(tri))
-		;
+	int hash[3] = {0};
+	for (int i = 0; i <= 4; i += 2)
+	{
+		hash[i/2] = tri[i] * 49 + tri[i + 1] * 7 + tri[(i + 1 + 4) % 6];
+		if (used[hash[i/2]] == 1)
+			return 1;
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		used[hash[i]] = 1;
+	}
+	return 0;
 }
 
-void solve(int *tri, void (*tactic)(int *tri))
+int perm_solve(int *tri, int solutions[][SIZE], int *used)
 {
 	assert(tri);
-	assert(tactic);
 
-	tactic(tri);
+	int size = 0;
+
+	while (next_permutation(tri))
+	{
+		if (check_sum(tri) && !check_used(tri, used))
+		{
+			for (int i = 0; i < SIZE; ++i)
+			{
+				solutions[size][i] = tri[i];
+			}
+			size++;
+		}		
+	}
+	return size;
 }
 
 int main()
 {
 	int tri[SIZE] = {1, 2, 3, 4, 5, 6};
+	int solutions[24][SIZE];
+	int used[6 * 49 + 5 * 7 + 4];
+	int size = perm_solve(tri, solutions, used);
 	
-	solve(tri, perm_solve);
-	
-	print_array(tri);
+	for (int i = 0; i < size; i++)
+	{
+		print_array(solutions[i]);
+	}
 
 	return 0;
 }
