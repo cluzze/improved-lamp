@@ -94,7 +94,7 @@ void perm_solve(Vector *vec, Vector *triplets, Vector *used, Vector2d *solutions
 	do
 	{
 		get_triplets(vec, triplets);
-		if (check_sum(triplets) && check_used(triplets, used))
+		if (check_sum(triplets) /*&& check_used(triplets, used)*/)
 		{
 			push_back_vector2d(solutions, triplets);
 		}

@@ -29,6 +29,8 @@ void set_el_vector(Vector *vec, size_t id, int el);
 
 void push_back_vector(Vector *vec, int el);
 
+void pop_back_vector(Vector *vec);
+
 void destroy_vector(Vector *vec);
 
 void print_vector(FILE *fd, Vector *vec);

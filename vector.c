@@ -46,6 +46,14 @@ void push_back_vector(Vector *vec, int el)
 	vec->data[vec->size++] = el;
 }
 
+void pop_back_vector(Vector *vec)
+{
+	MYASSERT(vec)
+	MYASSERT(vec->size != 0)
+
+	vec->size--;
+}
+
 void destroy_vector(Vector *vec)
 {
 	MYASSERT(vec)
@@ -60,11 +68,13 @@ void print_vector(FILE *fd, Vector *vec)
 
 	size_t i = 0;
 
-	for (i = 0; i < vec->size - 1; ++i)
+	for (i = 0; i < vec->size; i += 3)
 	{
-		fprintf(fd, "%d, ", vec->data[i]);
+		fprintf(fd, "(%d,%d,%d)", vec->data[i],
+									vec->data[i + 1],
+									vec->data[i + 2]);
 	}
-	fprintf(fd, "%d\n", vec->data[i]);
+	fprintf(fd, "\n");
 }
 
 void init_vector2d(Vector2d *vec, size_t nvecs, size_t size)
@@ -123,9 +133,9 @@ void print_vector2d(FILE *fd, Vector2d *vec)
 	MYASSERT(fd)
 	MYASSERT(vec)
 
-	size_t i = 0;
+	int i = 0;
 
-	for (i = 0; i < vec->size; ++i)
+	for (i = (int)vec->size - 1; i >= 0; --i)
 	{
 		print_vector(fd, &vec->data[i]);
 	}

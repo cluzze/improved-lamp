@@ -12,11 +12,10 @@ vector.o: vector.c vector.h
 permutation.o: permutation.c permutation.h
 	$(CC) $(CFLAGS) -c $^
 
+# solution.o: solution.c solution.h
+# 	$(CC) $(CFLAGS) -c $^
 
-solution.o: solution.c solution.h
-	$(CC) $(CFLAGS) -c $^
-
-myapp: main.o vector.o permutation.o solution.o
+myapp: main.o vector.o permutation.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
