@@ -174,4 +174,5 @@ int main()
 	destroy_vector(&vec);
 	destroy_vector(&used);
 	destroy_vector2d(&solutions);
+	destroy_vector2d(&unique_solutions);
 }
