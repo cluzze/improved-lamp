@@ -111,7 +111,7 @@ void get_unique_solutions(Vector2d *solutions, Vector2d *unique_solutions)
 	int size = 0;
 	int unique = 0;
 
-	for (i = (int)solutions->size - 1; i >= 1; --i)
+	for (i = (int)solutions->size - 1; i >= 0; --i)
 	{
 		size = solutions->data[i].size;
 		unique = 1;
@@ -168,6 +168,7 @@ int main()
 
 	get_unique_solutions(&solutions, &unique_solutions);
 
+	printf("unique solutions: %ld\n", unique_solutions.size);
 	print_vector2d(stdout, &unique_solutions);
 
 	destroy_vector(&krug);

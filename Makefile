@@ -1,7 +1,8 @@
+CC?=gcc
+CFLAGS?=-g -Wall -Wextra
 
-
-CC=gcc
-CFLAGS=-g -Wall -Wextra
+myapp: main.o vector.o permutation.o
+	$(CC) $(CFLAGS) -o $@ $^
 
 main.o: main.c myassert.h
 	$(CC) $(CFLAGS) -c $^
@@ -14,9 +15,6 @@ permutation.o: permutation.c permutation.h
 
 # solution.o: solution.c solution.h
 # 	$(CC) $(CFLAGS) -c $^
-
-myapp: main.o vector.o permutation.o
-	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
 	rm myapp *.o *.gch
